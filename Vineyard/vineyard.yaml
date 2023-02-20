@@ -1,0 +1,58 @@
+site:
+  mean_windspeed: 9
+  distance: 33
+  depth: 42
+  distance_to_landfall: 100 # distance cable will travel.
+plant:
+  layout: grid
+  row_spacing: 7
+  substation_distance: 1
+  turbine_spacing: 7
+  capacity: 800
+# Different ways to choose turbines; 12MW_generic is in the base ORBIT model, 15MW is in the specific analysis repo (data/turbines)
+turbine: "12MW_generic"
+landfall:
+  interconnection_distance: 3
+  trench_length: 2
+# Vessels
+array_cable_install_vessel: example_cable_lay_vessel
+export_cable_install_vessel: example_cable_lay_vessel
+export_cable_bury_vessel: example_cable_lay_vessel
+oss_install_vessel: example_heavy_lift_vessel
+spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
+wtiv: example_wtiv
+feeder: example_heavy_feeder
+num_feeders: 2
+# Module Specific
+OffshoreSubstationInstallation:
+  feeder: example_heavy_feeder
+  num_feeders: 1
+array_system_design:
+  cables:
+  - XLPE_185mm_66kV
+  - XLPE_630mm_66kV
+export_system_design:
+  cables: XLPE_1000m_220kV
+  percent_added_length: 0.0
+scour_protection_design:
+  cost_per_tonne: 40
+  scour_protection_depth: 1
+# Configured Phases
+design_phases:
+- ArraySystemDesign
+- ExportSystemDesign
+- MonopileDesign
+- OffshoreSubstationDesign
+- ScourProtectionDesign
+install_phases:
+     # Define some dependent start times, ie, Array Cables start when Monopile are 100% complete
+  ArrayCableInstallation: !!python/tuple
+  - MonopileInstallation
+  - 1.0
+  ExportCableInstallation: 0   # Indexed by OSS Install
+  OffshoreSubstationInstallation: 0
+  MonopileInstallation: 0
+  ScourProtectionInstallation: 0
+  TurbineInstallation:  !!python/tuple
+  - MonopileInstallation
+  - 0.5
