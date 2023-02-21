@@ -33,7 +33,7 @@ if __name__ == '__main__':
     config = load_config(custom_config)
 
     # Print out the required information for input config
-    phases = ['ArraySystemDesign', 'ExportSystemDesign', 'MonopileDesign', 'OffshoreSubstationDesign', 'ScourProtectionDesign', 'ArrayCableInstallation', 'ExportCableInstallation', 'OffshoreSubstationInstallation', 'MonopileInstallation', 'ScourProtectionInstallation', 'TurbineInstallation']
+    phases = ['ArraySystemDesign', 'ElectricalDesign', 'MonopileDesign', 'OffshoreSubstationDesign', 'ScourProtectionDesign', 'ArrayCableInstallation', 'ExportCableInstallation', 'OffshoreSubstationInstallation', 'MonopileInstallation', 'ScourProtectionInstallation', 'TurbineInstallation']
     expected_config = ProjectManager.compile_input_dict(phases)
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(expected_config)
