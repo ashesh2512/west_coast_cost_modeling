@@ -18,9 +18,12 @@ if 'DATA_LIBRARY' in os.environ:
     del os.environ['DATA_LIBRARY']
 
 # set full paths
-custom_library = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/data"
-custom_config = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/vineyard.yaml"
-custom_weather = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/data/weather/vineyard_wind_weather_1983_2017_orbit.csv"
+# custom_library = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/data"
+# custom_config = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/vineyard.yaml"
+# custom_weather = "/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/Vineyard/data/weather/vineyard_wind_weather_1983_2017_orbit.csv"
+custom_library = "data"
+custom_config = "humboldt.yaml"
+custom_weather = "data/weather/vineyard_wind_weather_1983_2017_orbit.csv"
 
 if __name__ == '__main__':
     # Point ORBIT to the custom data libraries in the anlaysis repo

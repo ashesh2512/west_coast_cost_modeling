@@ -32,7 +32,7 @@ array_system_design:
   - XLPE_185mm_66kV
   - XLPE_630mm_66kV
 export_system_design:
-  cables: XLPE_1000m_220kV
+  cables: HVDC_2000mm_320kV
   percent_added_length: 0.0
 scour_protection_design:
   cost_per_tonne: 40
@@ -40,9 +40,8 @@ scour_protection_design:
 # Configured Phases
 design_phases:
 - ArraySystemDesign
-- ExportSystemDesign
+- ElectricalDesign
 - MonopileDesign
-- OffshoreSubstationDesign
 - ScourProtectionDesign
 install_phases:
      # Define some dependent start times, ie, Array Cables start when Monopile are 100% complete
