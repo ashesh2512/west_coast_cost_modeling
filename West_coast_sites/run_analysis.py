@@ -19,7 +19,7 @@ if 'DATA_LIBRARY' in os.environ:
 
 # set relative paths (alternatively, set absolute paths)
 custom_library = "data"
-custom_config  = "humboldt.yaml"
+custom_config  = "north_ca.yaml"
 custom_weather = "data/weather/humboldt_weather_2010_2018.csv"
 
 if __name__ == '__main__':
