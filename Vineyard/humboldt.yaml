@@ -27,6 +27,7 @@ towing_vessel: example_towing_vessel
 towing_vessel_groups: # This is the key group for towing out the substructure/turbine assembly
   station_keeping_vessels: 1
   towing_vessels: 2
+  num_groups: 3
 mooring_install_vessel: example_support_vessel
 # wtiv: example_wtiv
 # feeder: example_heavy_feeder
@@ -58,9 +59,9 @@ design_phases:
 - SemiTautMooringSystemDesign
 install_phases:
      # Define some dependent start times, ie, Array Cables start when Monopile are 100% complete
-  # ArrayCableInstallation: !!python/tuple
-  # - MonopileInstallation
-  # - 1.0
+  ArrayCableInstallation: !!python/tuple
+  - MonopileInstallation
+  - 1.0
   ArrayCableInstallation: !!python/tuple
   - MooredSubInstallation
   - 0.5 # Start array cable installation when 50% of floaters are installed

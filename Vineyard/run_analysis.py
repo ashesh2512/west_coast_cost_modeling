@@ -58,3 +58,5 @@ if __name__ == '__main__':
     print(f"Total CapEx: {project.total_capex/1e6:.0f} M")
 
     print(f"\nInstallation Time: {project.installation_time:.0f} h")
+
+    # Should add a method here to report the start/end dates of each phase and maybe plot a Gantt chart or similar
