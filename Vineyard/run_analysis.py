@@ -30,10 +30,18 @@ if __name__ == '__main__':
     config = load_config(custom_config)
 
     # Print out the required information for input config
-    phases = ['ArraySystemDesign', 'ElectricalDesign', 'MonopileDesign', 'OffshoreSubstationDesign', 'ScourProtectionDesign', 'ArrayCableInstallation', 'ExportCableInstallation', 'OffshoreSubstationInstallation', 'MonopileInstallation', 'ScourProtectionInstallation', 'TurbineInstallation']
+    phases = ['ArraySystemDesign',
+                'ElectricalDesign',
+                'SemiSubmersibleDesign',
+                'SemiTautMooringSystemDesign',
+                'ArrayCableInstallation',
+                'ExportCableInstallation',
+                'MooringSystemInstallation',
+                'FloatingSubstationInstallation',
+                'MooredSubInstallation']
     expected_config = ProjectManager.compile_input_dict(phases)
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(expected_config)
+    # pp.pprint(expected_config)
 
     # Initialize and run project
     weather = pd.read_csv(custom_weather).set_index("datetime")  # Project installation begins at start of weather file unless other wise specified in install_phase in input config
@@ -42,3 +50,11 @@ if __name__ == '__main__':
 
     # Print some output results
     pp.pprint(project.capex_breakdown_per_kw)
+
+    print(f"Installation CapEx:  {project.installation_capex/1e6:.0f} M")
+    print(f"System CapEx:       {project.system_capex/1e6:.0f} M")
+    print(f"Turbine CapEx:       {project.turbine_capex/1e6:.0f} M")
+    print(f"Soft CapEx:          {project.soft_capex/1e6:.0f} M")
+    print(f"Total CapEx:        {project.total_capex/1e6:.0f} M")
+
+    print(f"\nInstallation Time: {project.installation_time:.0f} h")

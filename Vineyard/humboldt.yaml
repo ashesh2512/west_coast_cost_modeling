@@ -1,32 +1,42 @@
 site:
-  mean_windspeed: 9
-  distance: 33
-  depth: 42
-  distance_to_landfall: 100 # distance cable will travel.
+  mean_windspeed: 10.8
+  distance: 43
+  depth: 832
+  distance_to_landfall: 43 # distance cable will travel.
 plant:
   layout: grid
   row_spacing: 7
   substation_distance: 1
   turbine_spacing: 7
-  capacity: 800
+  capacity: 1000
 # Different ways to choose turbines; 12MW_generic is in the base ORBIT model, 15MW is in the specific analysis repo (data/turbines)
-turbine: "12MW_generic"
+turbine: "15MW_generic"
 landfall:
   interconnection_distance: 3
   trench_length: 2
 # Vessels
 array_cable_install_vessel: example_cable_lay_vessel
 export_cable_install_vessel: example_cable_lay_vessel
-export_cable_bury_vessel: example_cable_lay_vessel
-oss_install_vessel: example_heavy_lift_vessel
-spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
-wtiv: example_wtiv
-feeder: example_heavy_feeder
-num_feeders: 2
-# Module Specific
-OffshoreSubstationInstallation:
-  feeder: example_heavy_feeder
-  num_feeders: 1
+# export_cable_bury_vessel: example_cable_lay_vessel
+# Assume the dynamic cables will be suspended in the water column (not buried)
+oss_install_vessel: example_support_vessel # assume that this is towed out with a anchor handling vessel
+# spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
+# Scour protection installation (SPI) vessel only for fixed bottom foundations to prevent erosion at seabed
+support_vessel: example_support_vessel
+towing_vessel: example_towing_vessel
+towing_vessel_groups: # This is the key group for towing out the substructure/turbine assembly
+  station_keeping_vessels: 1
+  towing_vessels: 2
+mooring_install_vessel: example_support_vessel
+# wtiv: example_wtiv
+# feeder: example_heavy_feeder
+# num_feeders: 2
+# WTIVs, feeders, num_feeders are for fixed bottom installations
+
+##### Module Specific
+# OffshoreSubstationInstallation:
+#   feeder: example_heavy_feeder
+#   num_feeders: 1
 array_system_design:
   cables:
   - XLPE_185mm_66kV
@@ -34,24 +44,25 @@ array_system_design:
 export_system_design:
   cables: HVDC_2000mm_320kV
   percent_added_length: 0.0
-scour_protection_design:
-  cost_per_tonne: 40
-  scour_protection_depth: 1
+substation_design:
+  floating_oss: True
+mooring_system_design:
+  num_lines: 3
+  drag_embedment_fixed_length: 0
+
 # Configured Phases
 design_phases:
 - ArraySystemDesign
-- ElectricalDesign
-- MonopileDesign
-- ScourProtectionDesign
+- ElectricalDesign # New electrical design module includes export cable, offshore substation, and onshore substation design
+- SemiSubmersibleDesign
+- SemiTautMooringSystemDesign
 install_phases:
      # Define some dependent start times, ie, Array Cables start when Monopile are 100% complete
-  ArrayCableInstallation: !!python/tuple
-  - MonopileInstallation
-  - 1.0
+  # ArrayCableInstallation: !!python/tuple
+  # - MonopileInstallation
+  # - 1.0
+  ArrayCableInstallation: 0
   ExportCableInstallation: 0   # Indexed by OSS Install
-  OffshoreSubstationInstallation: 0
-  MonopileInstallation: 0
-  ScourProtectionInstallation: 0
-  TurbineInstallation:  !!python/tuple
-  - MonopileInstallation
-  - 0.5
+  MooredSubInstallation: 0
+  MooringSystemInstallation: 0
+  FloatingSubstationInstallation: 0
