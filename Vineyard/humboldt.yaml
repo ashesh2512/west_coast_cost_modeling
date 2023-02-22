@@ -38,6 +38,10 @@ mooring_install_vessel: example_support_vessel
 # OffshoreSubstationInstallation:
 #   feeder: example_heavy_feeder
 #   num_feeders: 1
+substructure:
+  takt_time: 168
+  towing_speed: 7
+  unit_cost: 11757583 # USD, IEA VolutrnUS Reference Hull. Output from a run by Garret , Wisdem. 19 Aug 2022. 
 array_system_design:
   cables:
   - XLPE_185mm_66kV
