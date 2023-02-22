@@ -20,7 +20,7 @@ if 'DATA_LIBRARY' in os.environ:
 # set relative paths (alternatively, set absolute paths)
 custom_library = "data"
 custom_config  = "humboldt.yaml"
-custom_weather = "data/weather/vineyard_wind_weather_1983_2017_orbit.csv"
+custom_weather = "data/weather/humboldt_weather_2010_2018.csv"
 
 if __name__ == '__main__':
     # Point ORBIT to the custom data libraries in the anlaysis repo
