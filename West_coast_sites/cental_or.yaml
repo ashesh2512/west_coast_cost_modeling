@@ -1,8 +1,8 @@
 site:
-  mean_windspeed: 10.81
-  distance: 43.349 # distance to Humboldt
-  depth: 832
-  distance_to_landfall: 43.349 # distance to Humboldt
+  mean_windspeed: 8.65 # (this is at 100m, need windspeed at 150m)
+  distance: 50.051 # distance to Coos Bay
+  depth: 594.7
+  distance_to_landfall: 76 # placeholder straight line to BPA Fairview substation
 plant:
   layout: grid
   row_spacing: 7

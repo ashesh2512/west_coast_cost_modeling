@@ -1,8 +1,8 @@
 site:
-  mean_windspeed: 10.81
-  distance: 43.349 # distance to Humboldt
-  depth: 832
-  distance_to_landfall: 43.349 # distance to Humboldt
+  mean_windspeed: 9.8
+  distance: 111.351 # distance to San Luis
+  depth: 1013
+  distance_to_landfall: 97.381 # distance to Diablo Canyon
 plant:
   layout: grid
   row_spacing: 7

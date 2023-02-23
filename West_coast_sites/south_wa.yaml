@@ -1,8 +1,8 @@
 site:
-  mean_windspeed: 10.81
-  distance: 43.349 # distance to Humboldt
-  depth: 832
-  distance_to_landfall: 43.349 # distance to Humboldt
+  mean_windspeed: 10 # (assumed wind speed at 150m)
+  distance: 89.117 # distance to Gray's Harbor
+  depth: 913 # (not averaged) based on the site location
+  distance_to_landfall: 89.117 # distance to Gray's Harbor
 plant:
   layout: grid
   row_spacing: 7
