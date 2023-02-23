@@ -62,10 +62,6 @@ design_phases:
 - SemiSubmersibleDesign
 - SemiTautMooringSystemDesign
 install_phases:
-     # Define some dependent start times, ie, Array Cables start when Monopile are 100% complete
-  ArrayCableInstallation: !!python/tuple
-  - MonopileInstallation
-  - 1.0
   ArrayCableInstallation: !!python/tuple
   - MooredSubInstallation
   - 0.5 # Start array cable installation when 50% of floaters are installed
