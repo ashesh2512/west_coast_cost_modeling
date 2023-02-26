@@ -2,7 +2,7 @@ site:
   mean_windspeed: 8.65 # (this is at 100m, need windspeed at 150m)
   distance: 50.051 # distance to Coos Bay
   depth: 594.7
-  distance_to_landfall: 76 # placeholder straight line to BPA Fairview substation
+  distance_to_landfall: 76.94 # to BPA Fairview substation
 plant:
   layout: grid
   row_spacing: 7

@@ -65,11 +65,11 @@ install_phases:
   ArrayCableInstallation: !!python/tuple
   - MooredSubInstallation
   - 0.5 # Start array cable installation when 50% of floaters are installed
-  ExportCableInstallation: 0
+  ExportCableInstallation: 01/01/2010
   MooredSubInstallation: !!python/tuple
   - MooringSystemInstallation
   - 0.5 # Start substructure install when 50% of mooring lines installed
-  MooringSystemInstallation: 0
+  MooringSystemInstallation: 01/01/2010
   FloatingSubstationInstallation: !!python/tuple
   - ExportCableInstallation
   - 0.25 # Start OSS installation when 25% of cable installation is complete
