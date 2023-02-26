@@ -13,7 +13,6 @@ from ORBIT import load_config
 from ORBIT import ProjectManager
 from ORBIT.core.library import initialize_library
 
-import os
 if 'DATA_LIBRARY' in os.environ:
     del os.environ['DATA_LIBRARY']
 
@@ -31,32 +30,33 @@ if __name__ == '__main__':
 
     # Print out the required information for input config
     phases = ['ArraySystemDesign',
-                'ElectricalDesign',
-                'SemiSubmersibleDesign',
-                'SemiTautMooringSystemDesign',
-                'ArrayCableInstallation',
-                'ExportCableInstallation',
-                'MooringSystemInstallation',
-                'FloatingSubstationInstallation',
-                'MooredSubInstallation']
+              'ElectricalDesign',
+              'SemiSubmersibleDesign',
+              'SemiTautMooringSystemDesign',
+              'ArrayCableInstallation',
+              'ExportCableInstallation',
+              'MooringSystemInstallation',
+              'FloatingSubstationInstallation',
+              'MooredSubInstallation']
     expected_config = ProjectManager.compile_input_dict(phases)
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(expected_config)
 
     # Initialize and run project
-    weather = pd.read_csv(custom_weather).set_index("datetime")  # Project installation begins at start of weather file unless other wise specified in install_phase in input config
+    weather = pd.read_csv(custom_weather, parse_dates=["datetime"]).set_index("datetime")
     project = ProjectManager(config, weather=weather)
     project.run()
 
     # Print some output results
     pp.pprint(project.capex_breakdown_per_kw)
 
-    print(f"Installation CapEx: {project.installation_capex/1e6:.0f} M")
+    print(f"\nInstallation CapEx: {project.installation_capex/1e6:.0f} M")
     print(f"System CapEx: {project.system_capex/1e6:.0f} M")
     print(f"Turbine CapEx: {project.turbine_capex/1e6:.0f} M")
     print(f"Soft CapEx: {project.soft_capex/1e6:.0f} M")
     print(f"Total CapEx: {project.total_capex/1e6:.0f} M")
-
-    print(f"\nInstallation Time: {project.installation_time:.0f} h")
+    print(f"Installation Time: {project.installation_time:.0f} h\n")
 
     # Should add a method here to report the start/end dates of each phase and maybe plot a Gantt chart or similar
+    df = pd.DataFrame(project.actions)
+    # df.to_excel("north_ca_action.xlsx", index=False) 
