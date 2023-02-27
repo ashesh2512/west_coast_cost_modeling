@@ -28,9 +28,13 @@ df = df.sort_values('time', ascending=True)
 start_date_list = []
 end_date_list = []
 for idx in range(0, df.shape[0]):
-    start_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time'])) #specify the number of hours and add it to start_date
-    end_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time']) \
-                         + pd.DateOffset(hours=df.loc[idx].at['duration'])) #specify the number of hours and add it to start_date
+    end_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time'])) #specify the number of hours and add it to start_date
+    start_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time']) \
+                           - pd.DateOffset(hours=df.loc[idx].at['duration'])) #specify the number of hours and add it to start_date
+    
+    print(start_date_list[idx])
+    print(end_date_list[idx])
+    
 
 # add dates column to the data frame 
 df.insert(loc = 5, column = 'start_date', value = start_date_list)
@@ -42,16 +46,16 @@ df['days_to_end'] = (df['end_date'] - df['start_date'].min()).dt.days
 df['phase_duration'] = df['days_to_end'] - df['days_to_start'] + 1
 
 # print(df)
-# df.to_excel("north_ca_action_gantt.xlsx", index=False)
+df.to_excel("north_ca_action_gantt.xlsx", index=False)
 
 # we will change phase name to delay if delay appears in the agent
 for idx in range(0, df.shape[0]):
-    if 'Delay' in df.at[idx, 'action']:
+    if 'Delay' == df.at[idx, 'action']:
         df.at[idx, plot_based_on] = 'Delay'
 
 ################################# Plot based on Phases #################################
 unique_phases = df[plot_based_on].unique()
-print(unique_phases)
+# print(unique_phases)
 
 # assign colors for phases/agents
 def color(row):
@@ -70,7 +74,7 @@ df['color'] = df.apply(color, axis=1)
 fig, ax = plt.subplots(1, figsize=(16,6))
 left_spacing = 0.3
 ax.barh(y=df[plot_based_on], width=df['phase_duration'], left=df['days_to_start'], color=df.color)
-plt.title('Installation schedule for North CA reference site')
+plt.title('Full project installation schedule for North CA reference site from ' + (df['start_date'].min()).strftime("%m/%d/%y") + ' to ' + (df['end_date'].max()).strftime("%m/%d/%y"))
 xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
 ax.set_xticklabels(xticks_labels[::100])
 plt.gca().invert_yaxis()

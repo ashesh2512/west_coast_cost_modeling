@@ -13,6 +13,7 @@ from ORBIT import load_config
 from ORBIT import ProjectManager
 from ORBIT.core.library import initialize_library
 
+import os
 if 'DATA_LIBRARY' in os.environ:
     del os.environ['DATA_LIBRARY']
 
@@ -58,5 +59,5 @@ if __name__ == '__main__':
     print(f"Installation Time: {project.installation_time:.0f} h\n")
 
     # Should add a method here to report the start/end dates of each phase and maybe plot a Gantt chart or similar
-    df = pd.DataFrame(project.actions)
+    # df = pd.DataFrame(project.actions)
     # df.to_excel("north_ca_action.xlsx", index=False) 
