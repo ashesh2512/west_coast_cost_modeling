@@ -32,9 +32,6 @@ for idx in range(0, df.shape[0]):
     start_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time']) \
                            - pd.DateOffset(hours=df.loc[idx].at['duration'])) #specify the number of hours and add it to start_date
     
-    print(start_date_list[idx])
-    print(end_date_list[idx])
-    
 
 # add dates column to the data frame 
 df.insert(loc = 5, column = 'start_date', value = start_date_list)
@@ -50,7 +47,7 @@ df.to_excel("north_ca_action_gantt.xlsx", index=False)
 
 # we will change phase name to delay if delay appears in the agent
 for idx in range(0, df.shape[0]):
-    if 'Delay' == df.at[idx, 'action']:
+    if 'Delay' in df.at[idx, 'action']:
         df.at[idx, plot_based_on] = 'Delay'
 
 ################################# Plot based on Phases #################################
