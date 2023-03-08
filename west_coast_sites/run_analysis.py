@@ -15,12 +15,12 @@ from ORBIT.core.library import initialize_library
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites')
-write_mode = False
+write_mode = True
 
 # set problem parameters
 site = 'central_CA'
 mean_windspeed = 9.31
-port = 'San Luis'
+port = 'San_Luis'
 distance = 111.351
 depth = 1013
 distance_to_landfall = 97.381
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # Load in the input configuration YAML
     base_config = load_config(custom_config)
 
-    # dependency of install phases
+    # configuration to be modified
     mod_config = {
         'site': {
         'mean_windspeed': mean_windspeed,
@@ -89,9 +89,12 @@ if __name__ == '__main__':
     print(f"Turbine CapEx: {project.turbine_capex/1e6:.0f} M")
     print(f"Soft CapEx: {project.soft_capex/1e6:.0f} M")
     print(f"Total CapEx: {project.total_capex/1e6:.0f} M")
-    print(f"Installation Time: {project.installation_time:.0f} h\n")
+
+    # print phase dates
+    pp.pprint(project.phase_dates)
 
     # Should add a method here to report the start/end dates of each phase and maybe plot a Gantt chart or similar
     df = pd.DataFrame(project.actions)
     if write_mode:
-        df.to_excel(site + '_action_' + port + start_date + '.xlsx', index=False) 
+        time_str = pd.to_datetime(start_date)
+        df.to_excel('scenario_actions/' + site + '_action_' + port + '_' + time_str.strftime('%m_%d_%Y') + '.xlsx', index=False) 

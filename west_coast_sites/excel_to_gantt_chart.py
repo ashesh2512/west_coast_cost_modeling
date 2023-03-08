@@ -5,15 +5,17 @@ import pandas as pd
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites/')
+write_mode = True
 
-site = 'northern_CA'
-write_mode = False
-plot_based_on = 'agent'
+# problem parameters
+site = 'central_CA'
+port = 'San_Luis'
 start_date  = '01/01/2002'
 start_date = pd.to_datetime(start_date)
+plot_based_on = 'agent'
 
 # read excel sheet and drop irrelevant stuff
-df = pd.read_excel(site + '_actions.xlsx')
+df = pd.read_excel('scenario_actions/' + site + '_action_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx')
 df = df.drop('cost_multiplier', axis=1)
 df = df.drop('level', axis=1)
 df = df.drop('location', axis=1)
@@ -22,9 +24,12 @@ df = df.drop('max_waveheight', axis=1)
 df = df.drop('max_windspeed', axis=1)
 df = df.drop('transit_speed', axis=1)
 df = df.drop('num_vessels', axis=1)
+df = df.drop(df[df['action'] == 'Onshore Construction'].index)
+df = df.drop(df[df['action'] == 'Mobilize'].index)
 
 # sort based on time
 df = df.sort_values('time', ascending=True)
+df = df.reset_index(drop = True)
 
 # create a new column converting time to date-time
 start_date_list = []
@@ -45,12 +50,12 @@ df['days_to_end'] = (df['end_date'] - df['start_date'].min()).dt.days
 df['phase_duration'] = df['days_to_end'] - df['days_to_start'] + 1
 
 if write_mode:
-    df.to_excel("north_ca_action_gantt.xlsx", index=False)
+    df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
 
 # we will change phase name to delay if delay appears in the agent
 for idx in range(0, df.shape[0]):
     if 'Delay' == df.at[idx, 'action']:
-        df.at[idx, plot_based_on] = 'Weather Delay'
+        df.at[idx, plot_based_on] = 'Delay: Weather'
     elif 'Delay' in df.at[idx, 'action'] and 'Delay' != df.at[idx, 'action']:
         df.at[idx, plot_based_on] = df.at[idx, 'action']
 
@@ -69,7 +74,7 @@ def color(row):
     elif plot_based_on == 'phase':
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
                   unique_phases[4]:'#1E90FF', unique_phases[5]:'#8B7D6B', unique_phases[6]:'#0000FF', unique_phases[7]:'#8A2BE2', \
-                  unique_phases[8]:'#A52A2A'}
+                  unique_phases[8]:'#A52A2A', unique_phases[9]:'#483D8B'}
         return c_dict[row[plot_based_on]]
 df['color'] = df.apply(color, axis=1)
 
