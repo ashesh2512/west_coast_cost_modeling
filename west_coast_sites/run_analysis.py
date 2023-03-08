@@ -20,6 +20,7 @@ write_mode = False
 # set problem parameters
 site = 'central_CA'
 mean_windspeed = 9.31
+port = 'San Luis'
 distance = 111.351
 depth = 1013
 distance_to_landfall = 97.381
@@ -93,4 +94,4 @@ if __name__ == '__main__':
     # Should add a method here to report the start/end dates of each phase and maybe plot a Gantt chart or similar
     df = pd.DataFrame(project.actions)
     if write_mode:
-        df.to_excel(site + '_action_test.xlsx', index=False) 
+        df.to_excel(site + '_action_' + port + start_date + '.xlsx', index=False) 
