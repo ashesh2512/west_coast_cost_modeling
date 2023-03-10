@@ -5,7 +5,7 @@ import pandas as pd
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites/')
-write_mode = True
+write_mode = False
 
 # problem parameters
 site = 'central_CA'

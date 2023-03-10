@@ -15,7 +15,7 @@ from ORBIT.core.library import initialize_library
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites')
-write_mode = True
+write_mode = False
 
 # set problem parameters
 site = 'central_CA'
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     print(f"System CapEx: {project.system_capex/1e6:.0f} M")
     print(f"Turbine CapEx: {project.turbine_capex/1e6:.0f} M")
     print(f"Soft CapEx: {project.soft_capex/1e6:.0f} M")
-    print(f"Total CapEx: {project.total_capex/1e6:.0f} M")
+    print(f"Total CapEx: {project.total_capex/1e6:.0f} M\n")
 
     # print phase dates
     pp.pprint(project.phase_dates)
@@ -97,4 +97,6 @@ if __name__ == '__main__':
     df = pd.DataFrame(project.actions)
     if write_mode:
         time_str = pd.to_datetime(start_date)
-        df.to_excel('scenario_actions/' + site + '_action_' + port + '_' + time_str.strftime('%m_%d_%Y') + '.xlsx', index=False) 
+        df.to_excel('scenario_actions/' + site + '_action_' + port + '_' + time_str.strftime('%m_%d_%Y') + '.xlsx', index=False)
+
+    print(f"\nInstallation Time: {df['time'].iloc[-1]:.0f} h")
