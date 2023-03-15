@@ -14,7 +14,8 @@ from ORBIT import ProjectManager
 from ORBIT.core.library import initialize_library
 
 import os
-os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites')
+west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
+os.chdir(west_coast_dir)
 write_mode = False
 
 # set problem parameters
