@@ -9,7 +9,7 @@ plant:
   substation_distance: 1
   turbine_spacing: 7
   capacity: 1000
-  # port
+# port
 port:
   sub_assembly_lines: 1
 # Different ways to choose turbines; 12MW_generic is in the base ORBIT model, 15MW is in the specific analysis repo (data/turbines)
@@ -26,9 +26,10 @@ oss_install_vessel: example_support_vessel # assume that this is towed out with 
 # spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
 # Scour protection installation (SPI) vessel only for fixed bottom foundations to prevent erosion at seabed
 support_vessel: example_support_vessel
+ahts_vessel: example_ahts_vessel
 towing_vessel: example_towing_vessel
 towing_vessel_groups: # This is the key group for towing out the substructure/turbine assembly
-  station_keeping_vessels: 1
+  ahts_vessels: 1
   towing_vessels: 2
   num_groups: 3
 mooring_install_vessel: example_support_vessel

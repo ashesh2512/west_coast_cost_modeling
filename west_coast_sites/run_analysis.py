@@ -18,14 +18,18 @@ west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling
 os.chdir(west_coast_dir)
 write_mode = False
 
-# set problem parameters
+# site problem parameters
 site = 'central_CA'
 mean_windspeed = 9.31
-port = 'San_Luis'
-distance = 111.351
+distance = 111.351 # distance to port
 depth = 1013
 distance_to_landfall = 97.381
 start_date = '01/01/2002'
+
+# port problem parameters
+port = 'San_Luis'
+sub_assembly_lines = 1
+turbine_assembly_cranes = 1
 
 if 'DATA_LIBRARY' in os.environ:
     del os.environ['DATA_LIBRARY']
@@ -49,6 +53,12 @@ if __name__ == '__main__':
         'distance': distance,
         'depth': depth,
         'distance_to_landfall': distance_to_landfall
+        },
+
+        'port': {
+        'name': port,
+        'sub_assembly_lines': sub_assembly_lines,
+        'turbine_assembly_cranes': turbine_assembly_cranes
         },
 
         'install_phases': {
@@ -83,6 +93,7 @@ if __name__ == '__main__':
     project.run()
 
     # Print some output results
+    print("\n")
     pp.pprint(project.capex_breakdown_per_kw)
 
     print(f"\nInstallation CapEx: {project.installation_capex/1e6:.0f} M")
