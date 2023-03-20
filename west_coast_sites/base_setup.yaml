@@ -12,6 +12,7 @@ plant:
 # port
 port:
   sub_assembly_lines: 1
+  turbine_assembly_cranes: 1
 # Different ways to choose turbines; 12MW_generic is in the base ORBIT model, 15MW is in the specific analysis repo (data/turbines)
 turbine: "15MW_generic"
 landfall:
