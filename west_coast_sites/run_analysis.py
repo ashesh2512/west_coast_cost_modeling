@@ -111,4 +111,7 @@ if __name__ == '__main__':
         time_str = pd.to_datetime(start_date)
         df.to_excel('scenario_actions/' + site + '_action_' + port + '_' + time_str.strftime('%m_%d_%Y') + '.xlsx', index=False)
 
-    print(f"\nInstallation Time: {df['time'].iloc[-1]:.0f} h")
+    print("\n")
+    pp.pprint(project.phase_times)
+
+    print(f"\nTotal Installation Time: {df['time'].iloc[-1]:.0f} h")

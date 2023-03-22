@@ -59,7 +59,6 @@ substation_design:
 mooring_system_design:
   num_lines: 3
   anchor_type: "Drag Embedment"
-  drag_embedment_fixed_length: 0.5
 
 # Configured Phases
 design_phases:
