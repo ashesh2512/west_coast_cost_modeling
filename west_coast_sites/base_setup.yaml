@@ -26,7 +26,6 @@ export_cable_install_vessel: example_cable_lay_vessel
 oss_install_vessel: example_support_vessel # assume that this is towed out with a anchor handling vessel
 # spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
 # Scour protection installation (SPI) vessel only for fixed bottom foundations to prevent erosion at seabed
-support_vessel: example_support_vessel
 ahts_vessel: example_ahts_vessel
 towing_vessel: example_towing_vessel
 towing_vessel_groups: # This is the key group for towing out the substructure/turbine assembly
