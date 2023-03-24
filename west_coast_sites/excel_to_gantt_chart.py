@@ -10,7 +10,7 @@ write_mode = False
 # problem parameters
 site = 'central_CA'
 port = 'San_Luis'
-start_date  = '01/01/2002'
+start_date  = '01/01/2020'
 start_date = pd.to_datetime(start_date)
 plot_based_on = 'agent'
 
@@ -49,19 +49,26 @@ df['days_to_start'] = (df['start_date'] - df['start_date'].min()).dt.days
 df['days_to_end'] = (df['end_date'] - df['start_date'].min()).dt.days
 df['phase_duration'] = df['days_to_end'] - df['days_to_start'] + 1
 
-if write_mode:
-    df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
-
 # we will change phase name to delay if delay appears in the agent
 for idx in range(0, df.shape[0]):
+    if 'Delay: Waiting on Completed Assembly' == df.at[idx, 'action']:
+        df.at[idx, 'action'] = 'Delay: Waiting on Substation Assembly'
+
+    if 'Delay: No Completed Assemblies Available' == df.at[idx, 'action']:
+        df.at[idx, 'action'] = 'Delay: Waiting on Turbine Assembly'
+
     if 'Delay' == df.at[idx, 'action']:
         df.at[idx, plot_based_on] = 'Delay: Weather'
     elif 'Delay' in df.at[idx, 'action'] and 'Delay' != df.at[idx, 'action']:
         df.at[idx, plot_based_on] = df.at[idx, 'action']
 
-################################# Plot based on Phases #################################
+if write_mode:
+    df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
+
+################################# Plot based on Phases/Agents #################################
+df[plot_based_on] = df[plot_based_on].str.wrap(30)
 unique_phases = df[plot_based_on].unique()
-print(unique_phases)
+# print(unique_phases)
 
 # assign colors for phases/agents
 def color(row):
@@ -69,7 +76,7 @@ def color(row):
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
                   unique_phases[4]:'#1E90FF', unique_phases[5]:'#8B7D6B', unique_phases[6]:'#0000FF', unique_phases[7]:'#8A2BE2', \
                   unique_phases[8]:'#A52A2A', unique_phases[9]:'#FF6103', unique_phases[10]:'#7FFF00', unique_phases[11]:'#FF1493', \
-                  unique_phases[12]:'#8B7500', unique_phases[13]:'#483D8B', unique_phases[14]:'#00C957', unique_phases[15]:'#696969'}
+                  unique_phases[12]:'#8B7500', unique_phases[13]:'#483D8B'}
         return c_dict[row['agent']]
     elif plot_based_on == 'phase':
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
@@ -78,12 +85,18 @@ def color(row):
         return c_dict[row[plot_based_on]]
 df['color'] = df.apply(color, axis=1)
 
-fig, ax = plt.subplots(1, figsize=(16,6))
-left_spacing = 0.3
+fig, ax = plt.subplots(1, figsize=(8,7))
 ax.barh(y=df[plot_based_on], width=df['phase_duration'], left=df['days_to_start'], color=df.color)
-plt.title('Full project installation schedule for North CA reference site from ' + (df['start_date'].min()).strftime("%m/%d/%y") + ' to ' + (df['end_date'].max()).strftime("%m/%d/%y"))
+# plt.title('Full project installation schedule for North CA reference site from ' + (df['start_date'].min()).strftime("%m/%d/%y") + ' to ' + (df['end_date'].max()).strftime("%m/%d/%y"))
+
+num_x_labels = 5
+day_spacing = int(((df['end_date'].max() - df['start_date'].min()).days)/num_x_labels)
+xticks = np.arange(0, df['days_to_end'].max()+1, day_spacing)
+ax.set_xticks(xticks)
 xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
-ax.set_xticklabels(xticks_labels[::100])
+ax.set_xticklabels(xticks_labels[::day_spacing])
+
 plt.gca().invert_yaxis()
-fig.subplots_adjust(left=left_spacing)
+fig.subplots_adjust(left=0.32)
+
 plt.show()
