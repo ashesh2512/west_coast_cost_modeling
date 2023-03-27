@@ -2,6 +2,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+plt.rcParams["font.family"] = "Times New Roman"
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites/')
