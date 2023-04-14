@@ -14,7 +14,8 @@ from ORBIT import ProjectManager
 from ORBIT.core.library import initialize_library
 
 import os
-west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
+# west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
+west_coast_dir = 'C:/Users/mshields/Documents/Projects/West Coast ports/Analysis/LCOE/west_coast_cost_modeling/west_coast_sites'
 os.chdir(west_coast_dir)
 write_mode = False
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     # Initialize and run project
     weather = pd.read_csv(custom_weather, parse_dates=["datetime"]).set_index("datetime")
     project = ProjectManager(run_config, weather=weather)
-    project.run()
+    project.run(include_onshore_construction=False)
 
     # Print some output results
     print("\n")
@@ -101,6 +102,9 @@ if __name__ == '__main__':
     print(f"Turbine CapEx: {project.turbine_capex/1e6:.0f} M")
     print(f"Soft CapEx: {project.soft_capex/1e6:.0f} M")
     print(f"Total CapEx: {project.total_capex/1e6:.0f} M\n")
+   
+    # print detailed ouptus
+    # pp.pprint(project.detailed_outputs)
 
     # print phase dates
     pp.pprint(project.phase_dates)
