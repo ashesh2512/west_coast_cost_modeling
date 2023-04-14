@@ -48,10 +48,9 @@ substructure:
   unit_cost: 11757583 # USD, IEA VolutrnUS Reference Hull. Output from a run by Garret , Wisdem. 19 Aug 2022. 
 array_system_design:
   cables:
-  - XLPE_185mm_66kV
-  - XLPE_630mm_66kV
+  - XLPE_500mm_132kV_dynamic
 export_system_design:
-  cables: HVDC_2000mm_320kV
+  cables: HVDC_2000mm_320kV_dynamic
   percent_added_length: 0.0
 substation_design:
   floating_oss: True
