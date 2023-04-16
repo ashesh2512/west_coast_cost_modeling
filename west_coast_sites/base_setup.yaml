@@ -72,7 +72,7 @@ design_phases:
 install_phases:
   ArrayCableInstallation: !!python/tuple
   - MooredSubInstallation
-  - 0.8 # Start array cable installation when 50% of floaters are installed
+  - 0.8 # Start array cable installation when 80% of floaters are installed
   ExportCableInstallation: 0
   MooredSubInstallation: !!python/tuple
   - MooringSystemInstallation
