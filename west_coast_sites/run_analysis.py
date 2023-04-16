@@ -30,7 +30,9 @@ start_date = '01/01/2002'
 # port problem parameters
 port = 'San_Luis'
 sub_assembly_lines = 1
+sub_storage = 5
 turbine_assembly_cranes = 1
+assembly_storage = 5
 
 if 'DATA_LIBRARY' in os.environ:
     del os.environ['DATA_LIBRARY']
@@ -59,7 +61,9 @@ if __name__ == '__main__':
         'port': {
         'name': port,
         'sub_assembly_lines': sub_assembly_lines,
-        'turbine_assembly_cranes': turbine_assembly_cranes
+        'sub_storage': sub_storage,
+        'turbine_assembly_cranes': turbine_assembly_cranes,
+        'assembly_storage': assembly_storage
         },
 
         'install_phases': {
