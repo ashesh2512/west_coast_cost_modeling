@@ -76,7 +76,7 @@ def color(row):
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
                   unique_phases[4]:'#1E90FF', unique_phases[5]:'#8B7D6B', unique_phases[6]:'#0000FF', unique_phases[7]:'#8A2BE2', \
                   unique_phases[8]:'#A52A2A', unique_phases[9]:'#FF6103', unique_phases[10]:'#7FFF00', unique_phases[11]:'#FF1493', \
-                  unique_phases[12]:'#8B7500', unique_phases[13]:'#483D8B'}
+                  unique_phases[12]:'#8B7500', unique_phases[13]:'#483D8B'} # unique_phases[14]:'#00C957', unique_phases[15]:'#696969'
         return c_dict[row['agent']]
     elif plot_based_on == 'phase':
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
