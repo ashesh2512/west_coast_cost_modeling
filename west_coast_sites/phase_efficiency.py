@@ -30,6 +30,7 @@ df_delay = df_delay.reset_index(drop = True)
 
 # create start times 
 df_delay['start_time'] = df_delay['end_time'] - df_delay['duration']
+df_delay = df_delay.loc[df_delay.groupby('start_time')['end_time'].idxmax()]
 df_delay = df_delay.sort_values('start_time', ascending=True)
 df_delay = df_delay.reset_index(drop = True)
 df_delay = df_delay.reindex(columns=['action', 'start_time', 'duration', 'end_time'])
@@ -47,7 +48,7 @@ df_delay = df_delay.append(new_row, ignore_index=True)
 if (unique_delays):
     idx = 0
     while (idx < df_delay.shape[0]-1):
-        delay_end = df_delay.at[idx, 'start_time'] + df_delay.at[idx, 'duration']
+        delay_end = df_delay.at[idx, 'end_time']
         if (delay_end >= df_delay.at[idx+1, 'end_time']):
             df_delay = df_delay.drop(index=idx+1)
             df_delay = df_delay.reset_index(drop = True)
@@ -57,6 +58,7 @@ if (unique_delays):
             df_delay.at[idx, 'duration'] = df_delay.at[idx, 'end_time'] - df_delay.at[idx, 'start_time']
             df_delay = df_delay.drop(index=idx+1)
             df_delay = df_delay.reset_index(drop = True)
+            continue
         idx += 1
 
 weather_delays = df_delay['duration'].sum()
