@@ -19,12 +19,12 @@ plot_based_on = 'agent'
 df = pd.read_excel('scenario_actions/' + site + '_action_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx')
 df = df.drop('cost_multiplier', axis=1)
 df = df.drop('level', axis=1)
-df = df.drop('location', axis=1)
 df = df.drop('phase_name', axis=1)
 df = df.drop('max_waveheight', axis=1)
 df = df.drop('max_windspeed', axis=1)
 df = df.drop('transit_speed', axis=1)
 df = df.drop('num_vessels', axis=1)
+df = df.drop('num_ahts_vessels', axis=1)
 df = df.drop(df[df['action'] == 'Onshore Construction'].index)
 df = df.drop(df[df['action'] == 'Mobilize'].index)
 
@@ -52,16 +52,15 @@ df['phase_duration'] = df['days_to_end'] - df['days_to_start'] + 1
 
 # we will change phase name to delay if delay appears in the agent
 for idx in range(0, df.shape[0]):
-    if 'Delay: Waiting on Completed Assembly' == df.at[idx, 'action']:
-        df.at[idx, 'action'] = 'Delay: Waiting on Substation Assembly'
-
-    if 'Delay: No Completed Assemblies Available' == df.at[idx, 'action']:
-        df.at[idx, 'action'] = 'Delay: Waiting on Turbine Assembly'
-
     if 'Delay' == df.at[idx, 'action']:
         df.at[idx, plot_based_on] = 'Delay: Weather'
     elif 'Delay' in df.at[idx, 'action'] and 'Delay' != df.at[idx, 'action']:
         df.at[idx, plot_based_on] = df.at[idx, 'action']
+
+# we will change phase name to delay if delay appears in the agent
+for idx in range(0, df.shape[0]):
+    if 'Array Cable Burial Vessel' == df.at[idx, 'agent']:
+        df.at[idx, plot_based_on] = 'Array Cable Installation Vessel'
 
 if write_mode:
     df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
