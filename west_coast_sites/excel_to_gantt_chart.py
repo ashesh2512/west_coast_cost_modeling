@@ -57,11 +57,6 @@ for idx in range(0, df.shape[0]):
     elif 'Delay' in df.at[idx, 'action'] and 'Delay' != df.at[idx, 'action']:
         df.at[idx, plot_based_on] = df.at[idx, 'action']
 
-# we will change phase name to delay if delay appears in the agent
-for idx in range(0, df.shape[0]):
-    if 'Array Cable Burial Vessel' == df.at[idx, 'agent']:
-        df.at[idx, plot_based_on] = 'Array Cable Installation Vessel'
-
 if write_mode:
     df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
 

@@ -25,8 +25,6 @@ landfall:
 # Vessels
 array_cable_install_vessel: array_cable_lay_vessel
 export_cable_install_vessel: export_cable_lay_vessel
-array_cable_bury_vessel: dummy_cable_bury_vessel     # TODO - Fix this awful hack to define separate lay rates for export and array
-# Assume the dynamic cables will be suspended in the water column (not buried)
 oss_install_vessel: example_support_vessel # assume that this is towed out with a anchor handling vessel
 # spi_vessel: example_large_scour_protection_vessel  # Define a custom vessel in analysis repo (data/vessels) since standard SPI vessel isn't big enough for 15 MW turbine scour
 # Scour protection installation (SPI) vessel only for fixed bottom foundations to prevent erosion at seabed
