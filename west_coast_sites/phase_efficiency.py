@@ -6,8 +6,8 @@ import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites/')
 
 # problem parameters
-site = 'southern_WA'
-port = 'Grays_Harbor'
+site = 'central_CA'
+port = '50km_two_assembly_lines'
 start_date  = '01/01/2020'
 start_date = pd.to_datetime(start_date)
 phase_name = 'MooredSubInstallation'
@@ -15,6 +15,9 @@ unique_delays = True
 
 # read excel sheet and drop irrelevant stuff
 df = pd.read_excel('scenario_actions/' + site + '_action_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx')
+
+total_duration = df['time'].max()
+print(f"\nTotal Duration: {total_duration / 24:.3f} days")
 
 # keep only rows corresponding to the phase of interest
 df = df[df['phase'] == phase_name]
@@ -61,12 +64,12 @@ if (unique_delays):
             continue
         idx += 1
 
-weather_delays = df_delay['duration'].sum()
-print(f"\nWeather Delays: {weather_delays:.3f} hrs")
-
 first_process = df['duration'].loc[df['time'].idxmin()]
 phase_duration = df['time'].max() - df['time'].min() + first_process
-print(f"Phase Duration: {phase_duration:.3f} hrs")
+print(f"Phase Duration: {phase_duration/24:.3f} days")
+
+weather_delays = df_delay['duration'].sum()
+print(f"Weather Delays: {weather_delays/24:.3f} days")
 
 efficiency = (phase_duration - weather_delays)/phase_duration
 print(f"Efficiency: {efficiency*100:.3f}%\n")
