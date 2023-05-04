@@ -60,8 +60,6 @@ substation_design:
 mooring_system_design:
   num_lines: 3
   anchor_type: "Drag Embedment"
-# ArrayCableInstallation:      # TODO: Define faster array cable lay/'bury' speed because its not not actually     
-  # cable_lay_bury_speed: 0.4 
 
 # Configured Phases
 design_phases:
