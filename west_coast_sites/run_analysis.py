@@ -123,4 +123,4 @@ if __name__ == '__main__':
     pp.pprint(project.phase_times)
 
     print(f"\nTotal Installation Time: {df['time'].iloc[-1]:.0f} h")
-    print(f"\nTotal Installation Time: {(df['time'].iloc[-1])/24:.0f} days")
+    print(f"Total Installation Time: {(df['time'].iloc[-1])/24:.0f} days")
