@@ -1,8 +1,9 @@
 import datetime as dt
 import matplotlib.pyplot as plt
+plt.rcParams["font.family"] = "Times New Roman"
 import numpy as np
 import pandas as pd
-plt.rcParams["font.family"] = "Times New Roman"
+import textwrap
 
 import os
 os.chdir('/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites/')
@@ -39,7 +40,6 @@ for idx in range(0, df.shape[0]):
     end_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time'])) #specify the number of hours and add it to start_date
     start_date_list.append(start_date + pd.DateOffset(hours=df.loc[idx].at['time']) \
                            - pd.DateOffset(hours=df.loc[idx].at['duration'])) #specify the number of hours and add it to start_date
-    
 
 # add dates column to the data frame 
 df.insert(loc = 5, column = 'start_date', value = start_date_list)
@@ -65,13 +65,21 @@ df[plot_based_on] = df[plot_based_on].str.wrap(30)
 unique_phases = df[plot_based_on].unique()
 # print(unique_phases)
 
+agent_dic = ['Mooring System Installation Vessel', 'Export Cable Installation Vessel', 'Array Cable Installation Vessel', \
+             'Towing Group 1', 'Towing Group 2', 'Towing Group 3','Floating Substation Installation Vessel', \
+             'Substation Assembly Line 1', 'Substructure Assembly Line 1', 'Turbine Assembly Line 1', 'Substructure Assembly Line 2', 'Turbine Assembly Line 2', \
+             'Delay: Waiting on Substation Assembly', 'Delay: No Substructures in Wet Storage', 'Delay: No Substructure Storage Available', 'Delay: No Completed Turbine Assemblies', 'Delay: No Assembly Storage Available', \
+             'Delay: Weather']
+wrapped_agent_dic = [textwrap.fill(phrase, width=30) for phrase in agent_dic]
+
 # assign colors for phases/agents
 def color(row):
     if plot_based_on == 'agent':
-        c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
-                  unique_phases[4]:'#1E90FF', unique_phases[5]:'#8B7D6B', unique_phases[6]:'#0000FF', unique_phases[7]:'#8A2BE2', \
-                  unique_phases[8]:'#A52A2A', unique_phases[9]:'#FF6103', unique_phases[10]:'#7FFF00', unique_phases[11]:'#FF1493', \
-                  unique_phases[12]:'#8B7500', unique_phases[13]:'#483D8B'} # unique_phases[14]:'#00C957', unique_phases[15]:'#696969'
+        c_dict = {wrapped_agent_dic[0]:'#EEEE00', wrapped_agent_dic[1]:'#EE0000', wrapped_agent_dic[2]:'#8B0000', \
+                  wrapped_agent_dic[3]:'#7FFF00', wrapped_agent_dic[4]:'#66CD00', wrapped_agent_dic[5]:'#458B00', wrapped_agent_dic[6]:'#EE9A49', \
+                  wrapped_agent_dic[7]:'#8B5A2B', wrapped_agent_dic[8]:'#AB82FF', wrapped_agent_dic[9]:'#4876FF', wrapped_agent_dic[10]:'#5D478B', wrapped_agent_dic[11]:'#27408B', \
+                  wrapped_agent_dic[12]:'#9E9E9E', wrapped_agent_dic[13]:'#9E9E9E', wrapped_agent_dic[14]:'#9E9E9E', wrapped_agent_dic[15]:'#9E9E9E', wrapped_agent_dic[16]:'#9E9E9E', \
+                  wrapped_agent_dic[17]:'#000000'}
         return c_dict[row['agent']]
     elif plot_based_on == 'phase':
         c_dict = {unique_phases[0]:'#228B22', unique_phases[1]:'#00FFFF', unique_phases[2]:'#76EEC6', unique_phases[3]:'#000000', \
@@ -88,8 +96,8 @@ num_x_labels = 5
 day_spacing = int(((df['end_date'].max() - df['start_date'].min()).days)/num_x_labels)
 xticks = np.arange(0, df['days_to_end'].max()+1, day_spacing)
 ax.set_xticks(xticks)
-xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
-ax.set_xticklabels(xticks_labels[::day_spacing])
+# xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
+# ax.set_xticklabels(xticks_labels[::day_spacing])
 
 plt.gca().invert_yaxis()
 fig.subplots_adjust(left=0.32)
