@@ -14,24 +14,24 @@ from ORBIT import ProjectManager
 from ORBIT.core.library import initialize_library
 
 import os
-# west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
-west_coast_dir = 'C:/Users/mshields/Documents/Projects/West Coast ports/Analysis/LCOE/west_coast_cost_modeling/west_coast_sites'
+west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
+# west_coast_dir = 'C:/Users/mshields/Documents/Projects/West Coast ports/Analysis/LCOE/west_coast_cost_modeling/west_coast_sites'
 os.chdir(west_coast_dir)
 write_mode = False
 
 # site problem parameters
 site = 'central_CA'
 mean_windspeed = 9.31
-distance = 111.351 # distance to port
 depth = 1013
 distance_to_landfall = 97.381
 start_date = '01/01/2002'
 
 # port problem parameters
 port = 'San_Luis'
+distance_to_site = 111.351 # port distance to site
 sub_assembly_lines = 1
+turbine_assembly_cranes = sub_assembly_lines
 sub_storage = 5
-turbine_assembly_cranes = 1
 assembly_storage = 5
 
 if 'DATA_LIBRARY' in os.environ:
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     mod_config = {
         'site': {
         'mean_windspeed': mean_windspeed,
-        'distance': distance,
+        'distance': distance_to_site,
         'depth': depth,
         'distance_to_landfall': distance_to_landfall
         },
@@ -123,3 +123,4 @@ if __name__ == '__main__':
     pp.pprint(project.phase_times)
 
     print(f"\nTotal Installation Time: {df['time'].iloc[-1]:.0f} h")
+    print(f"\nTotal Installation Time: {(df['time'].iloc[-1])/24:.0f} days")
