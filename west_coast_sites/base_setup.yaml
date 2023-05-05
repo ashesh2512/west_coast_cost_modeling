@@ -20,8 +20,6 @@ turbine: "15MW_four_sections"
 landfall:
   interconnection_distance: 3
   trench_length: 2
-# export_system:
-  # onshore_construction_cost: 0
 # Vessels
 array_cable_install_vessel: array_cable_lay_vessel
 export_cable_install_vessel: export_cable_lay_vessel
