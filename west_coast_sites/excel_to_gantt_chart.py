@@ -60,13 +60,31 @@ for idx in range(0, df.shape[0]):
 if write_mode:
     df.to_excel('scenario_actions/' + site + '_action_gantt_' + port + '_' + start_date.strftime('%m_%d_%Y') + '.xlsx', index=False)
 
+################################# Change the name of Agents #################################
+
+for idx in range(0, df.shape[0]):
+    if df.at[idx, 'agent'] == 'Mooring System Installation Vessel':
+        df.at[idx, 'agent'] = 'Mooring System Installation'
+    elif df.at[idx, 'agent'] == 'Export Cable Installation Vessel':
+        df.at[idx, 'agent'] = 'Export Cable Installation'
+    elif df.at[idx, 'agent'] == 'Array Cable Installation Vessel':
+        df.at[idx, 'agent'] = 'Array Cable Installation'
+    elif df.at[idx, 'agent'] == 'Towing Group 1':
+        df.at[idx, 'agent'] = 'Floating Turbine Installation Group 1'
+    elif df.at[idx, 'agent'] == 'Towing Group 2':
+        df.at[idx, 'agent'] = 'Floating Turbine Installation Group 2'
+    elif df.at[idx, 'agent'] == 'Towing Group 3':
+        df.at[idx, 'agent'] = 'Floating Turbine Installation Group 3'
+    elif df.at[idx, 'agent'] == 'Floating Substation Installation Vessel':
+        df.at[idx, 'agent'] = 'Floating Substation Installation'
+
 ################################# Plot based on Phases/Agents #################################
 df[plot_based_on] = df[plot_based_on].str.wrap(30)
 unique_phases = df[plot_based_on].unique()
 # print(unique_phases)
 
-agent_dic = ['Mooring System Installation Vessel', 'Export Cable Installation Vessel', 'Array Cable Installation Vessel', \
-             'Towing Group 1', 'Towing Group 2', 'Towing Group 3','Floating Substation Installation Vessel', \
+agent_dic = ['Mooring System Installation', 'Export Cable Installation', 'Array Cable Installation', \
+             'Floating Turbine Installation Group 1', 'Floating Turbine Installation Group 2', 'Floating Turbine Installation Group 3','Floating Substation Installation', \
              'Substation Assembly Line 1', 'Substructure Assembly Line 1', 'Turbine Assembly Line 1', 'Substructure Assembly Line 2', 'Turbine Assembly Line 2', \
              'Delay: Waiting on Substation Assembly', 'Delay: No Substructures in Wet Storage', 'Delay: No Substructure Storage Available', 'Delay: No Completed Turbine Assemblies', 'Delay: No Assembly Storage Available', \
              'Delay: Weather']
@@ -96,6 +114,7 @@ num_x_labels = 5
 day_spacing = int(((df['end_date'].max() - df['start_date'].min()).days)/num_x_labels)
 xticks = np.arange(0, df['days_to_end'].max()+1, day_spacing)
 ax.set_xticks(xticks)
+ax.set_xlabel("Days elapsed since the start of installation")
 # xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
 # ax.set_xticklabels(xticks_labels[::day_spacing])
 
