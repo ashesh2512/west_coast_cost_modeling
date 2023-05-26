@@ -30,7 +30,7 @@ ahts_vessel: example_ahts_vessel
 towing_vessel: example_towing_vessel
 towing_vessel_groups: # This is the key group for towing out the substructure/turbine assembly
   ahts_vessels: 1
-  towing_vessels: 3
+  towing_vessels: 2
   num_groups: 3
 mooring_install_vessel: example_support_vessel
 # wtiv: example_wtiv
@@ -42,6 +42,8 @@ mooring_install_vessel: example_support_vessel
 # OffshoreSubstationInstallation:
 #   feeder: example_heavy_feeder
 #   num_feeders: 1
+offshore_substation_substructure:
+  takt_time: 336
 substructure:
   takt_time: 168
   towing_speed: 5.5

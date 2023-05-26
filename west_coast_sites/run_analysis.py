@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
         'install_phases': {
         'MooringSystemInstallation': start_date,
-        'MooredSubInstallation': ('MooringSystemInstallation', 0.5),
+        'MooredSubInstallation': ('MooringSystemInstallation', 0.4),
         'ArrayCableInstallation': ('MooredSubInstallation', 0.8),
         'ExportCableInstallation': start_date,
         'FloatingSubstationInstallation': ('ExportCableInstallation', 0.25)
