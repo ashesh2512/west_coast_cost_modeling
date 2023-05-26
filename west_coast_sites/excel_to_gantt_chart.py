@@ -1,6 +1,9 @@
 import datetime as dt
 import matplotlib.pyplot as plt
-plt.rcParams["font.family"] = "Times New Roman"
+# plt.rcParams["font.family"] = "Times New Roman"
+font = {'family' : 'Arial',
+        'size'   : 10}
+plt.rc('font', **font)
 import numpy as np
 import pandas as pd
 import textwrap
@@ -114,7 +117,7 @@ num_x_labels = 5
 day_spacing = int(((df['end_date'].max() - df['start_date'].min()).days)/num_x_labels)
 xticks = np.arange(0, df['days_to_end'].max()+1, day_spacing)
 ax.set_xticks(xticks)
-ax.set_xlabel("Days elapsed since the start of installation")
+ax.set_xlabel("Days elapsed since the start of installation", fontdict=dict(weight='bold'), fontsize=12)
 # xticks_labels = pd.date_range(start=df['start_date'].min(), end=df['end_date'].max()).strftime("%m/%d/%y")
 # ax.set_xticklabels(xticks_labels[::day_spacing])
 
