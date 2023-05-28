@@ -18,7 +18,7 @@ import os
 west_coast_dir = '/Users/asharma/codes/P_Code/currTests/west_coast_cost_modeling/west_coast_sites'
 # west_coast_dir = 'C:/Users/mshields/Documents/Projects/West Coast ports/Analysis/LCOE/west_coast_cost_modeling/west_coast_sites'
 os.chdir(west_coast_dir)
-write_mode = True
+write_mode = False
 
 start_dates = ['01/01/2002', '01/01/2005', '01/01/2008', '01/01/2011', '01/01/2014', '01/01/2017', '01/01/2020']
 
