@@ -25,14 +25,14 @@ start_dates = ['01/01/2002', '01/01/2005', '01/01/2008', '01/01/2011', '01/01/20
 for start_date in start_dates:
 
     # site problem parameters
-    site = 'southern_WA'
-    mean_windspeed = 8.31
-    depth = 913
-    distance_to_landfall = 89.117
+    site = 'central_CA'
+    mean_windspeed = 9.31
+    depth = 1013
+    distance_to_landfall = 97.381
 
     # port problem parameters
-    port = 'Grays_Harbor'
-    distance_to_site = 89.117 # port distance to site
+    port = 'San_Luis'
+    distance_to_site = 111.351 # port distance to site
     sub_assembly_lines = 1
     turbine_assembly_cranes = sub_assembly_lines
     sub_storage = 5
