@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-plt.rcParams["font.family"] = "Times New Roman"
+# plt.rcParams["font.family"] = "Times New Roman"
+font = {'family' : 'Arial',
+        'size'   : 10}
+plt.rc('font', **font)
 
 scenarios = (
     "Central CA\n (Central CA)",
@@ -14,9 +17,9 @@ scenarios = (
     "Southern WA\n (WA coast)",
 )
 capex = {
+    "Installation CapEx": np.divide(np.array([432, 461, 507, 501, 577, 561, 453, 467]), 1),
     "System CapEx": np.divide(np.array([1613, 1613, 1613, 1475, 1475, 1502, 1434, 1562]), 1),
     "Turbine CapEx": np.divide(np.array([1306, 1306, 1306, 1306, 1306, 1306, 1306, 1306]), 1),
-    "Installation CapEx": np.divide(np.array([464, 510, 525, 540, 597, 589, 496, 524]), 1),
     "Soft CapEx": np.divide(np.array([645, 645, 645, 645, 645, 645, 645, 645]), 1),
 }
 width = 0.5
